@@ -1,0 +1,47 @@
+import dayjs from "dayjs"
+
+import { PUBLIC_DOMAIN } from "$env/static/public"
+import { trpcClient } from "$lib/trpc/client"
+
+
+export async function GET() {
+  const [tracks, albums, artists] = await trpcClient.mp3pam.fetchSiteMap.query()
+
+  const allData = [
+    ...tracks.map((t) => ({ ...t, type: "tracks" })),
+    ...artists.map((a) => ({ ...a, type: "artists" })),
+    ...albums.map((a) => ({ ...a, type: "albums" })),
+
+  ].sort((a, b) => (a.updated < b.updated ? 1 : -1))
+
+  const allItems = allData.map((single) => {
+    return [
+      `<url>`,
+      `<loc>${PUBLIC_DOMAIN}/${single.type}/${single.id}</loc>`,
+      `<lastmod>${dayjs(single.updated).format("YYYY-MM-DD")}</lastmod>`,
+      `</url>`,
+    ].join("")
+  })
+
+  const xml = [
+    `<?xml version="1.0" encoding="UTF-8"?>`,
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+
+    // index page, or /blog page
+    `<url>`,
+    `<loc>${PUBLIC_DOMAIN}</loc>`,
+    `<lastmod>${dayjs(allData[0].updated).format("YYYY-MM-DD")}</lastmod>`,
+    `</url>`,
+
+    ...allItems,
+    `</urlset>`,
+  ]
+
+  const headers: HeadersInit = {
+    "Content-Type": "application/xml; charset=utf-8",
+    "x-content-type-options": "nosniff",
+    "Cache-Control": "max-age=1440, s-maxage=86400",
+  }
+
+  return new Response(xml.join(""), { headers })
+}

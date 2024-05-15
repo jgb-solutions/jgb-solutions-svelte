@@ -1,0 +1,3 @@
+.image {
+	@apply sm:w-64 sm:h-auto w-full max-w-full rounded-3xl sm:rounded-tr-none sm:rounded-br-none;
+}

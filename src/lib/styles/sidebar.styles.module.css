@@ -1,0 +1,23 @@
+.container {
+	@apply flex flex-col text-white;
+}
+
+.menuList {
+	@apply flex-1;
+}
+
+.mainMenuLink {
+	@apply mb-8;
+}
+
+.link {
+	@apply text-white flex no-underline font-bold hover:opacity-50 active:opacity-50;
+}
+
+.linkIcon {
+	@apply text-6xl mr-8;
+}
+
+.linkText {
+	@apply text-6xl;
+}

@@ -1,0 +1,7 @@
+.outerContainer {
+	/* @apply -mx-2; */
+}
+
+.container {
+	@apply flex flex-nowrap overflow-x-auto scroll-smooth snap-mandatory space-x-4 -mx-4 px-4;
+}
