@@ -8,10 +8,8 @@
 
 	import type { Snippet } from 'svelte'
 	import Header from '$lib/components/Header.svelte'
-	import Flex from '$lib/components/Flex.svelte'
-	import Left from '$lib/components/Left.svelte'
-	import Content from '$lib/components/Content.svelte'
 	import { page } from '$app/stores'
+	import Footer from '$lib/components/Footer.svelte'
 
 	let { children }: { children: Snippet } = $props()
 
@@ -20,8 +18,14 @@
 	}
 </script>
 
-<main class="max-w-[1000px] mx-auto">
-	{@render children()}
+<main class="">
+	<Header />
+
+	<div class="bg-lightGrey h-screen">
+		{@render children()}
+	</div>
+
+	<Footer />
 </main>
 
 <style>

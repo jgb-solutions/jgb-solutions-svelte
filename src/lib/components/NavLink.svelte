@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { AppRoutes as R } from '$lib/routes'
+	import { AppRoutes as R } from '$lib/data.svelte'
 	import { clx } from '$lib/helpers'
 	import { page } from '$app/stores'
 	import type { Snippet } from 'svelte'

@@ -13,6 +13,6 @@
 	} = $props()
 </script>
 
-<div class={clx('mx-auto', className)} {...props}>
+<div class={clx('max-w-7xl mx-auto px-4', className)} {...props}>
 	{@render children()}
 </div>
